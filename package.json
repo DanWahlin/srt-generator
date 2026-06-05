@@ -1,0 +1,21 @@
+{
+  "name": "srt-generator",
+  "version": "0.1.0",
+  "description": "Cross-platform CLI wrapper for Whisper + FFmpeg caption generation",
+  "main": "src/cli.js",
+  "bin": {
+    "srtgen": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "srt",
+    "captions",
+    "whisper",
+    "ffmpeg",
+    "cli"
+  ],
+  "license": "MIT"
+}
