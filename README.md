@@ -1,15 +1,18 @@
-# SRT Generator CLI
+<p align="center">
+  <img src="./images/srtgen.png" alt="SRT Generator" height="200" />
+</p>
 
-This project now includes a small cross-platform CLI wrapper that uses existing OSS tools to:
+# srtgen - Video Captions Generator CLI
 
-- generate only an `.srt` file from a video
+This project provides a small cross-platform CLI wrapper that uses existing  tools to:
+
+- generate an `.srt` file from a video
 - generate an `.srt` file and embed it into an MP4 output
 
-The plan uses:
+The CLI tool uses:
 
 - OpenAI Whisper CLI for speech-to-text / SRT generation
 - FFmpeg for subtitle embedding
-- an optional lightweight wrapper CLI to orchestrate both steps in one command
 
 ## What this wrapper does
 
@@ -121,16 +124,29 @@ If you prefer a local/offline path later, Whisper.cpp can also be evaluated as a
 
 ## Install the wrapper CLI
 
-From this folder, install it locally for development:
+Clone the repo:
+
+```bash
+git clone https://github.com/danwahlin/srtgen.git
+cd srtgen
+```
+
+Install the project dependencies:
 
 ```bash
 npm install
 ```
 
-To install it globally on your machine:
+To make the `srtgen` command available anywhere on your system, install the wrapper globally from the project root:
 
 ```bash
 npm install -g .
+```
+
+Verify that the command is available:
+
+```bash
+srtgen --help
 ```
 
 Then you can run:
