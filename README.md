@@ -4,7 +4,7 @@
 
 # srtgen - Video Captions Generator CLI
 
-This project provides a small cross-platform CLI wrapper that uses existing  tools to:
+This project provides a small cross-platform CLI wrapper that uses existing tools to:
 
 - generate an `.srt` file from a video
 - generate an `.srt` file and embed it into an MP4 output
@@ -24,20 +24,20 @@ The CLI tool uses:
 ## CLI usage
 
 ```bash
-node src/cli.js transcribe ./input.mp4
-node src/cli.js transcribe ./input.mp4 --embed
-node src/cli.js transcribe ./input.mp4 --embed --overwrite-original
-node src/cli.js transcribe ./input.mp4 --output-dir ./out --model base
-node src/cli.js transcribe ./input.mp4 --language en
+srtgen transcribe ./input.mp4
+srtgen transcribe ./input.mp4 --embed
+srtgen transcribe ./input.mp4 --embed --overwrite-original
+srtgen transcribe ./input.mp4 --output-dir ./out --model base
+srtgen transcribe ./input.mp4 --language en
 ```
 
 ### Option reference
 
 The CLI supports these flags after the `transcribe` command:
 
-- `--embed` - create an MP4 with the `.srt` embedded as a selectable subtitle track
+- `--embed` - create an `<input-name>-srt.mp4` file with the `.srt` embedded as a selectable subtitle track
 - `--overwrite-original` - replace the input video itself with the captioned MP4 (opt-in)
-- `--output-dir <path>` - write the generated `.srt` file to a specific folder; the default is beside the input video
+- `--output-dir <path>` - write generated output to a specific folder; the default is beside the input video
 - `--model <name>` - choose the Whisper model to use for transcription
   - default: `turbo`
   - examples: `tiny`, `base`, `small`, `medium`, `large`, `turbo`
@@ -49,16 +49,15 @@ The wrapper validates option values, so missing values for `--output-dir`, `--mo
 
 The wrapper passes `--model` straight through to Whisper, so the available model names come from Whisper itself.
 
-After installing the wrapper globally with npm, you can use:
+For local development before global installation, you can run the same CLI through npm:
 
 ```bash
-srtgen transcribe ./input.mp4
-srtgen transcribe ./input.mp4 --embed
-srtgen transcribe ./input.mp4 --embed --overwrite-original
-srtgen transcribe ./input.mp4 --help
+npm start -- transcribe ./input.mp4
+npm start -- transcribe ./input.mp4 --embed
+npm start -- transcribe ./input.mp4 --help
 ```
 
-## Required tools
+## Installation
 
 ### 1. FFmpeg
 
@@ -128,7 +127,7 @@ Clone the repo:
 
 ```bash
 git clone https://github.com/danwahlin/srtgen.git
-cd srtgen
+cd srt-generator
 ```
 
 Install the project dependencies:
@@ -162,10 +161,11 @@ srtgen transcribe ./input.mp4 --help
 
 The CLI is implemented as a small Node.js wrapper that:
 
-- checks for `whisper` or `python -m whisper`
-- checks for `ffmpeg` when `--embed` is used
+- checks for `whisper` or a Python module invocation such as `python -m whisper`
+- checks for FFmpeg with subtitle support when `--embed` is used
 - creates an `.srt` file in the chosen output folder by default
 - leaves the original input video untouched unless `--overwrite-original` is passed
 - optionally embeds the `.srt` into an MP4 as a subtitle track with FFmpeg
+- writes embedded MP4 output as `<input-name>-srt.mp4` unless `--overwrite-original` is passed
 
 This keeps the transcription pipeline on top of existing OSS tools instead of reimplementing speech recognition.
